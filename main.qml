@@ -73,7 +73,7 @@ ApplicationWindow {
         //currentFolder: viewer.folder
         onAccepted: {
             //console.log(currentFolder)
-            gui.test(currentFolder)
+            guiFns.setPath(currentFolder)
 
         }
     }

@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
 
-    QScopedPointer<guiInterface> gui(new guiInterface);
+    QScopedPointer<guiInterfaceFns> guiFns(new guiInterfaceFns);
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-    engine.rootContext()->setContextProperty("gui",gui.data());
+    engine.rootContext()->setContextProperty("guiFns",guiFns.data());
 
     return app.exec();
 }
