@@ -29,9 +29,11 @@ public slots:
 };
 
 
-class guiInterfaceObject : public QObject
+class GuiInterfaceObject : public QObject
 {
     Q_OBJECT
+
+    Q_PROPERTY(QString imagePath READ getImagePath WRITE setImagePath NOTIFY imagePathChanged)
 
 public:
     QString filePath = "";
@@ -42,13 +44,20 @@ public:
     QStringList fileFilters  = (QStringList() << "*.jpeg" << "*.jpg" << "*.png");
     int filesInDirListIndex = 0;
 
-    explicit guiInterfaceObject(QObject *parent = nullptr);
+    explicit GuiInterfaceObject(QObject *parent = nullptr);
+    Q_INVOKABLE QString getImagePath() const;
 
 signals:
     void updatePicture();
+    void imagePathChanged();
 
 public slots:
-    void setPath(QString _inp);
+    void setImagePath(QString _inp);
+    Q_INVOKABLE void setPath(QString _inp);
+
+private:
+
+
 };
 
 

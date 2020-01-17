@@ -1,6 +1,7 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 import Qt.labs.platform 1.0 as NativeDialogs
+import com.guiobject 1.0
 
 ApplicationWindow {
     id: window
@@ -8,6 +9,10 @@ ApplicationWindow {
     width: 640
     height: 480
     title: qsTr("Stack")
+
+    GuiObject {
+        id: guiobject
+    }
 
     header: ToolBar {
         contentHeight: toolButton.implicitHeight
@@ -73,7 +78,8 @@ ApplicationWindow {
         //currentFolder: viewer.folder
         onAccepted: {
             //console.log(currentFolder)
-            guiFns.setPath(currentFolder)
+            //guiFns.setPath(currentFolder)
+            GuiObject.setPath(currentFolder)
 
         }
     }

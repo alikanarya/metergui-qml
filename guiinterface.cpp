@@ -27,7 +27,23 @@ void guiInterfaceFns::setPath(QString _inp)
 
 }
 
-void guiInterfaceObject::setPath(QString _inp)
+GuiInterfaceObject::GuiInterfaceObject(QObject *parent)
+{
+
+}
+
+QString GuiInterfaceObject::getImagePath() const
+{
+    return imagePath;
+}
+
+void GuiInterfaceObject::setImagePath(QString _inp)
+{
+
+
+}
+
+void GuiInterfaceObject::setPath(QString _inp)
 {
     folderPath = filePath = _inp;
     folderPath.replace("file:///","");
@@ -40,5 +56,5 @@ void guiInterfaceObject::setPath(QString _inp)
     //foreach(QString temp, filesInDirList){ qDebug() << temp; }
     imagePath = filePath + "/" + filesInDirList.at(0);
     qDebug() << "imagePath" << imagePath;
-
+    emit imagePathChanged();
 }
