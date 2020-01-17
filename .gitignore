@@ -1,3 +1,5 @@
 /release
 /debug
 /metergui-qml.pro.user
+/Makefile.Debug
+/Makefile.Release

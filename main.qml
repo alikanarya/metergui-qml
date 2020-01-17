@@ -79,7 +79,8 @@ ApplicationWindow {
         onAccepted: {
             //console.log(currentFolder)
             //guiFns.setPath(currentFolder)
-            GuiObject.setPath(currentFolder)
+            //GuiObject.setPath(currentFolder)
+            GIO.setPath(currentFolder)
 
         }
     }

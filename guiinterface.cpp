@@ -39,8 +39,8 @@ QString GuiInterfaceObject::getImagePath() const
 
 void GuiInterfaceObject::setImagePath(QString _inp)
 {
-
-
+    imagePath = _inp;
+    emit imagePathChanged();
 }
 
 void GuiInterfaceObject::setPath(QString _inp)
@@ -54,7 +54,7 @@ void GuiInterfaceObject::setPath(QString _inp)
     filesInDirList = fileOpenDir.entryList(fileFilters, QDir::Files);
 
     //foreach(QString temp, filesInDirList){ qDebug() << temp; }
-    imagePath = filePath + "/" + filesInDirList.at(0);
-    qDebug() << "imagePath" << imagePath;
-    emit imagePathChanged();
+    QString _imagePath = filePath + "/" + filesInDirList.at(0);
+    qDebug() << "imagePath" << _imagePath;
+    setImagePath(_imagePath);
 }

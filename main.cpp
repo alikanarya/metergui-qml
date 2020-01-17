@@ -23,7 +23,9 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-    engine.rootContext()->setContextProperty("guiFns",guiFns.data());
+    engine.rootContext()->setContextProperty("guiFns", guiFns.data());
+    GuiInterfaceObject GIO;
+    engine.rootContext()->setContextProperty("GIO", &GIO);
 
     return app.exec();
 }
