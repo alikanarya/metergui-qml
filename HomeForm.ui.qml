@@ -4,6 +4,7 @@ import QtQuick.Controls 2.13
 Page {
     width: 700
     height: 400
+    focusPolicy: Qt.NoFocus
 
     title: qsTr("Home")
 
@@ -53,18 +54,30 @@ Page {
         }
     }
 
+    property alias imageslider : imageslider
+
     Slider {
         id: imageslider
         x: 638
         y: 27
         width: 48
         height: 300
+        snapMode: Slider.SnapAlways
+        focus: GIO.sliderFocus
+        focusPolicy: Qt.StrongFocus
         from: 0
         to: GIO.filesInDirListSize-1
         orientation: Qt.Vertical
         stepSize: 1.0
         wheelEnabled: false
         live: false
-        value: 0
+        value: GIO.fileIndex
+
     }
+
+    Connections {
+        target: imageslider
+        onMoved: GIO.setIndex(imageslider.value)
+    }
+
 }

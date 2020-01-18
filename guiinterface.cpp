@@ -42,6 +42,24 @@ double GuiInterfaceObject::getfilesInDirListSize() const
     return filesInDirListSize;
 }
 
+int GuiInterfaceObject::getfileIndex() const
+{
+    return fileIndex;
+}
+
+bool GuiInterfaceObject::getsliderFocus() const
+{
+    return sliderFocus;
+}
+
+void GuiInterfaceObject::setIndex(double value)
+{
+    fileIndex = (int) value;
+    qDebug() << "fileIndex: " << fileIndex;
+    setImagePath(filePath + "/" + filesInDirList.at((int) fileIndex));
+
+}
+
 void GuiInterfaceObject::setImagePath(QString _inp)
 {
     imagePath = _inp;
@@ -52,6 +70,18 @@ void GuiInterfaceObject::setfilesInDirListSize(int _inp)
 {
     filesInDirListSize = _inp;
     emit filesInDirListSizeChanged();
+}
+
+void GuiInterfaceObject::setfileIndex(int _inp)
+{
+    fileIndex = _inp;
+    emit fileIndexChanged();
+}
+
+void GuiInterfaceObject::setsliderFocus(bool _inp)
+{
+    sliderFocus = _inp;
+    emit sliderFocusChanged();
 }
 
 void GuiInterfaceObject::setPath(QString _inp)
@@ -65,14 +95,11 @@ void GuiInterfaceObject::setPath(QString _inp)
     filesInDirList = fileOpenDir.entryList(fileFilters, QDir::Files);
     setfilesInDirListSize (filesInDirList.size());
     qDebug() << "filesInDirListSize: " << filesInDirListSize;
-    /*
-    if (filesInDirListSize != 0) sliderStep = 1.0 / filesInDirListSize;
-    else sliderStep = 1.0;
-    qDebug() << "sliderStep: " << sliderStep;
-    */
+    setfileIndex(0);
 
     //foreach(QString temp, filesInDirList){ qDebug() << temp; }
-    QString _imagePath = filePath + "/" + filesInDirList.at(0);
+    QString _imagePath = filePath + "/" + filesInDirList.at(fileIndex);
     //qDebug() << "imagePath: " << _imagePath;
     setImagePath(_imagePath);
+    setsliderFocus(true);
 }

@@ -14,7 +14,11 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    qmlRegisterType<GuiInterfaceObject>("com.guiobject",1,0,"GuiObject");
+    //qmlRegisterType<GuiInterfaceObject>("com.guiobject",1,0,"GuiObject");
+
+    //engine.rootContext()->setContextProperty("guiFns", guiFns.data());
+    GuiInterfaceObject GIO;
+    engine.rootContext()->setContextProperty("GIO", &GIO);
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
@@ -23,9 +27,6 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-    engine.rootContext()->setContextProperty("guiFns", guiFns.data());
-    GuiInterfaceObject GIO;
-    engine.rootContext()->setContextProperty("GIO", &GIO);
 
     return app.exec();
 }
