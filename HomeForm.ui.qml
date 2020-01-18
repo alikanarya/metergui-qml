@@ -59,8 +59,10 @@ Page {
         y: 27
         width: 48
         height: 300
+        from: 0
+        to: GIO.filesInDirListSize-1
         orientation: Qt.Vertical
-        stepSize: 0.2
+        stepSize: 1.0
         wheelEnabled: false
         live: false
         value: 0
