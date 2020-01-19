@@ -52,11 +52,26 @@ bool GuiInterfaceObject::getsliderFocus() const
     return sliderFocus;
 }
 
+QString GuiInterfaceObject::getFileName() const
+{
+    return fileName;
+}
+
 void GuiInterfaceObject::setIndex(double value)
 {
     fileIndex = (int) value;
-    qDebug() << "fileIndex: " << fileIndex;
-    setImagePath(filePath + "/" + filesInDirList.at((int) fileIndex));
+    //qDebug() << "fileIndex: " << fileIndex;
+    setFileName(filesInDirList.at((int) fileIndex));
+    setImagePath(filePath + "/" + fileName);
+}
+
+void GuiInterfaceObject::connectedToDB()
+{
+
+}
+
+void GuiInterfaceObject::unconnectedToDB()
+{
 
 }
 
@@ -84,6 +99,22 @@ void GuiInterfaceObject::setsliderFocus(bool _inp)
     emit sliderFocusChanged();
 }
 
+void GuiInterfaceObject::setFileName(QString _inp)
+{
+    fileName = _inp;
+    year = fileName.mid(2,2);
+    month = fileName.mid(4,2);
+    day = fileName.mid(6,2);
+    date = day + "/" + month + "/" + year;
+    hour = fileName.mid(9,2);
+    min = fileName.mid(11,2);
+    sec = fileName.mid(13,2);
+    time = hour + ":" + min + ":" + sec;
+
+    qDebug() << date << " " << time;
+    emit fileNameChanged();
+}
+
 void GuiInterfaceObject::setPath(QString _inp)
 {
     folderPath = filePath = _inp;
@@ -94,11 +125,12 @@ void GuiInterfaceObject::setPath(QString _inp)
     fileOpenDir = QDir(folderPath);
     filesInDirList = fileOpenDir.entryList(fileFilters, QDir::Files);
     setfilesInDirListSize (filesInDirList.size());
-    qDebug() << "filesInDirListSize: " << filesInDirListSize;
+    //qDebug() << "filesInDirListSize: " << filesInDirListSize;
     setfileIndex(0);
 
     //foreach(QString temp, filesInDirList){ qDebug() << temp; }
-    QString _imagePath = filePath + "/" + filesInDirList.at(fileIndex);
+    setFileName(filesInDirList.at(fileIndex));
+    QString _imagePath = filePath + "/" + fileName;
     //qDebug() << "imagePath: " << _imagePath;
     setImagePath(_imagePath);
     setsliderFocus(true);

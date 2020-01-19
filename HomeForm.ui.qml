@@ -9,9 +9,9 @@ Page {
     title: qsTr("Home")
 
     Label {
-        text: qsTr("You are on the home page.")
-        anchors.verticalCenterOffset: 173
-        anchors.horizontalCenterOffset: -163
+        text: qsTr("Dosya Adı:")
+        anchors.verticalCenterOffset: 158
+        anchors.horizontalCenterOffset: -85
         anchors.centerIn: parent
     }
 
@@ -78,6 +78,17 @@ Page {
     Connections {
         target: imageslider
         onMoved: GIO.setIndex(imageslider.value)
+    }
+
+    Label {
+        id: lbl_filename
+        x: -9
+        y: 0
+        //text: qsTr("GIO.fileName")
+        text: GIO.fileName
+        anchors.verticalCenterOffset: 158
+        anchors.horizontalCenterOffset: 34
+        anchors.centerIn: parent
     }
 
 }

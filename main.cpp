@@ -3,6 +3,18 @@
 #include <QQmlEngine>
 #include <QQmlContext>
 #include "guiinterface.h"
+#include "dbthread.h"
+
+#define _DB_NAME            "homeAutoDB"
+#define _DB_USER            "ali"
+#define _DB_PASS            "reyhan"
+QString MSG_DB_CON_YES = "DB+";
+QString MSG_DB_CON_NO = "DB-";
+QString clientAddress = "192.168.2.48";
+QString dbName = "homeAutoDB";
+QString dbUser = "ali";
+QString dbPass = "reyhan";
+dbThread *dbThreadX;
 
 int main(int argc, char *argv[])
 {
@@ -28,5 +40,10 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     engine.load(url);
 
+    dbThreadX = new dbThread();
+    dbThreadX->cmdConnect = true;
+    dbThreadX->start();
+    QObject::connect(dbThreadX, SIGNAL(connected()),&GIO,SLOT(connectedToDB()));
+    QObject::connect(dbThreadX, SIGNAL(unconnected()), &GIO, SLOT(unconnectedToDB()));
     return app.exec();
 }
