@@ -10,7 +10,7 @@ Page {
 
     Label {
         text: qsTr("Dosya Adı:")
-        anchors.verticalCenterOffset: 158
+        anchors.verticalCenterOffset: 179
         anchors.horizontalCenterOffset: -85
         anchors.centerIn: parent
     }
@@ -19,8 +19,8 @@ Page {
 
     Button {
         id: loadButton
-        x: 53
-        y: 27
+        x: 27
+        y: 53
         text: qsTr("Klasör Seç")
 
     }
@@ -33,7 +33,7 @@ Page {
     BorderImage {
         id: borderImage
         x: 232
-        y: 27
+        y: 53
         width: 400
         height: 300
         opacity: 1
@@ -59,7 +59,7 @@ Page {
     Slider {
         id: imageslider
         x: 638
-        y: 27
+        y: 53
         width: 48
         height: 300
         snapMode: Slider.SnapAlways
@@ -84,11 +84,27 @@ Page {
         id: lbl_filename
         x: -9
         y: 0
-        //text: qsTr("GIO.fileName")
         text: GIO.fileName
-        anchors.verticalCenterOffset: 158
+        anchors.verticalCenterOffset: 179
         anchors.horizontalCenterOffset: 34
         anchors.centerIn: parent
+    }
+
+    Label {
+        id: lbl_dbconn
+        x: 0
+        y: -6
+        color: (lbl_dbconn.text === "DB -"
+                ? 'red'
+                : lbl_dbconn.text === "DB +"
+                ? 'green'
+                : 'black')
+        text: GIO.lbl_dbConn
+        horizontalAlignment: Text.AlignLeft
+        verticalAlignment: Text.AlignVCenter
+        anchors.centerIn: parent
+        anchors.horizontalCenterOffset: -68
+        anchors.verticalCenterOffset: -170
     }
 
 }

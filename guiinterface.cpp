@@ -57,6 +57,11 @@ QString GuiInterfaceObject::getFileName() const
     return fileName;
 }
 
+QString GuiInterfaceObject::get_lbl_dbConn() const
+{
+    return lbl_dbConn;
+}
+
 void GuiInterfaceObject::setIndex(double value)
 {
     fileIndex = (int) value;
@@ -67,12 +72,12 @@ void GuiInterfaceObject::setIndex(double value)
 
 void GuiInterfaceObject::connectedToDB()
 {
-
+    set_lbl_dbConn(MSG_DB_CON_YES);
 }
 
 void GuiInterfaceObject::unconnectedToDB()
 {
-
+    set_lbl_dbConn(MSG_DB_CON_NO);
 }
 
 void GuiInterfaceObject::setImagePath(QString _inp)
@@ -113,6 +118,12 @@ void GuiInterfaceObject::setFileName(QString _inp)
 
     qDebug() << date << " " << time;
     emit fileNameChanged();
+}
+
+void GuiInterfaceObject::set_lbl_dbConn(QString _inp)
+{
+    lbl_dbConn = _inp;
+    emit lbl_dbConnChanged();
 }
 
 void GuiInterfaceObject::setPath(QString _inp)

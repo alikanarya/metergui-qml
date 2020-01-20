@@ -5,7 +5,6 @@
 #include <QDir>
 
 
-
 class guiInterfaceFns : public QObject
 {
     Q_OBJECT
@@ -38,9 +37,12 @@ class GuiInterfaceObject : public QObject
     Q_PROPERTY(int fileIndex READ getfileIndex WRITE setfileIndex NOTIFY fileIndexChanged)
     Q_PROPERTY(bool sliderFocus READ getsliderFocus WRITE setsliderFocus NOTIFY sliderFocusChanged)
     Q_PROPERTY(QString fileName READ getFileName WRITE setFileName NOTIFY fileNameChanged)
-    Q_PROPERTY(QString fileName READ getFileName WRITE setFileName NOTIFY fileNameChanged)
+    Q_PROPERTY(QString lbl_dbConn READ get_lbl_dbConn WRITE set_lbl_dbConn NOTIFY lbl_dbConnChanged)
 
 public:
+    QString MSG_DB_CON_YES = "DB +";
+    QString MSG_DB_CON_NO = "DB -";
+
     QString filePath = "";
     QString imagePath = "";
     QString folderPath = "";
@@ -54,6 +56,7 @@ public:
     QString fileName = "";
     QString year, month, day, hour, min, sec;
     QString date = "", time = "";
+    QString lbl_dbConn = MSG_DB_CON_NO;
 
     explicit GuiInterfaceObject(QObject *parent = nullptr);
     Q_INVOKABLE QString getImagePath() const;
@@ -61,6 +64,7 @@ public:
     Q_INVOKABLE int getfileIndex() const;
     Q_INVOKABLE bool getsliderFocus() const;
     Q_INVOKABLE QString getFileName() const;
+    Q_INVOKABLE QString get_lbl_dbConn() const;
 
 signals:
     void imagePathChanged();
@@ -68,6 +72,7 @@ signals:
     void fileIndexChanged();
     void sliderFocusChanged();
     void fileNameChanged();
+    void lbl_dbConnChanged();
 
 public slots:
     void setImagePath(QString _inp);
@@ -75,6 +80,7 @@ public slots:
     void setfileIndex(int _inp);
     void setsliderFocus(bool _inp);
     void setFileName(QString _inp);
+    void set_lbl_dbConn(QString _inp);
 
     Q_INVOKABLE void setPath(QString _inp);
     Q_INVOKABLE void setIndex(double value);

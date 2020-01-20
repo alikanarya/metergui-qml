@@ -17,7 +17,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         dbthread.cpp \
         guiinterface.cpp \
-        main.cpp
+        main.cpp \
+        netops.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,4 +35,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     dbthread.h \
-    guiinterface.h
+    guiinterface.h \
+    netops.h
