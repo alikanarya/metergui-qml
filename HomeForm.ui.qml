@@ -124,4 +124,28 @@ Page {
         anchors.horizontalCenterOffset: 83
     }
 
+    Button {
+        id: querryButton
+        x: 27
+        y: 117
+        text: qsTr("Sorgu")
+        checked: true
+    }
+
+    BusyIndicator {
+        id: busyIndicator
+        x: 112
+        y: 117
+        running: false
+    }
+
+    Connections {
+        target: querryButton
+        onClicked: {
+                   GIO.queryImage()
+                   busyIndicator.running = true
+                   }
+    }
+
+
 }

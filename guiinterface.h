@@ -3,7 +3,9 @@
 
 #include <QObject>
 #include <QDir>
+#include "netops.h"
 
+extern netOps *netX;
 
 class guiInterfaceFns : public QObject
 {
@@ -91,6 +93,7 @@ public slots:
 
     Q_INVOKABLE void setPath(QString _inp);
     Q_INVOKABLE void setIndex(double value);
+    Q_INVOKABLE void queryImage();
 
     void connectedToDB();
     void unconnectedToDB();

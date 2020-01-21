@@ -77,6 +77,12 @@ void GuiInterfaceObject::setIndex(double value)
     setImagePath(filePath + "/" + fileName);
 }
 
+void GuiInterfaceObject::queryImage()
+{
+    netX->makeRequest(6);
+    setsliderFocus(true);
+}
+
 void GuiInterfaceObject::connectedToDB()
 {
     set_lbl_dbConn(MSG_DB_CON_YES);
@@ -102,7 +108,7 @@ void GuiInterfaceObject::setImagePath(QString _inp)
     imagePath = _inp;
     emit imagePathChanged();
     QString _imagePath = folderPath + "/" + fileName;
-    qDebug() << "_imagePath: " << _imagePath;   //eg:
+    //qDebug() << "_imagePath: " << _imagePath;   //eg: "D:/Engineering/Repository Data/meter/ngmeter-data/2020-01/13/20200113_073001.jpeg"
 
     if (QFile::exists(webSvrFile)) {
         QFile::remove(webSvrFile);

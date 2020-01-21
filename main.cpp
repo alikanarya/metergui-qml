@@ -14,6 +14,7 @@ QString dbName = "homeAutoDB";
 QString dbUser = "ali";
 QString dbPass = "reyhan";
 dbThread *dbThreadX;
+netOps *netX;
 QString RequestUrl[8] = {
     /*0*/   "http://192.168.2.49/capture_with_flashlight",
     /*1*/   "http://192.168.2.49/capture",
@@ -21,8 +22,8 @@ QString RequestUrl[8] = {
     /*3*/   "http://192.168.2.11:3000/wasserzaehler.html?url=http://192.168.2.49/capture_with_flashlight&single",
     /*4*/   "http://192.168.2.11:3000/wasserzaehler.html?url=http://192.168.2.49/capture&single",
     /*5*/   "http://192.168.2.10/meter/capture.jpg",
-    /*6*/   "http://192.168.2.11:3000/wasserzaehler.html?url=http://192.168.2.10/meter/capture.jpg&single",
-    /*7*/   "http://127.0.0.1/meter/capture.jpg"
+    /*6*/   "http://192.168.2.11:3000/wasserzaehler.html?url=http://192.168.2.10/meter/ngmeter.jpeg&single",
+    /*7*/   "http://127.0.0.1/meter/ngmeter.jpeg"
     };
 QString webSvrFile = "C:/xampp/htdocs/meter/ngmeter.jpeg";
 QString webUrl = "http://192.168.2.48:8080/";
@@ -59,10 +60,10 @@ int main(int argc, char *argv[])
 
     dbThreadX->start();
 
-    netOps netX("");
-    QObject::connect(&netX, SIGNAL(connectedToWebSvr()), &GIO, SLOT(connectedToWebSvr()));
-    QObject::connect(&netX, SIGNAL(unconnectedToWebSvr()), &GIO, SLOT(unconnectedToWebSvr()));
-    netX.makeRequest(7);    //check local web server is runnning
+    netX = new netOps("");
+    QObject::connect(netX, SIGNAL(connectedToWebSvr()), &GIO, SLOT(connectedToWebSvr()));
+    QObject::connect(netX, SIGNAL(unconnectedToWebSvr()), &GIO, SLOT(unconnectedToWebSvr()));
+    netX->makeRequest(7);    //check local web server is runnning
 
 
     return app.exec();
