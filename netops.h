@@ -24,7 +24,6 @@ using namespace std;
 //extern dataThread *dataX;
 
 extern QString RequestUrl[];
-extern QString webDir;
 extern QString webUrl;
 
 class netOps : public QObject
@@ -56,6 +55,8 @@ public:
     bool checkHost(QString ip);
 
 signals:
+    void connectedToWebSvr();
+    void unconnectedToWebSvr();
 
 public slots:
     void downloadFinished(QNetworkReply *reply);

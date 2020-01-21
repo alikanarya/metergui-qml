@@ -97,14 +97,31 @@ Page {
         color: (lbl_dbconn.text === "DB -"
                 ? 'red'
                 : lbl_dbconn.text === "DB +"
-                ? 'green'
-                : 'black')
+                  ? 'green'
+                  : 'black')
         text: GIO.lbl_dbConn
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         anchors.centerIn: parent
         anchors.horizontalCenterOffset: -68
         anchors.verticalCenterOffset: -170
+    }
+
+    Label {
+        id: lbl_webserverConn
+        x: 3
+        y: -9
+        color: (lbl_webserverConn.text === "WEB -"
+                    ? 'red'
+                    : lbl_webserverConn.text === "WEB +"
+                    ? 'green'
+                    : 'black')
+        text: GIO.lbl_webserverConn
+        anchors.verticalCenterOffset: -170
+        horizontalAlignment: Text.AlignLeft
+        anchors.centerIn: parent
+        verticalAlignment: Text.AlignVCenter
+        anchors.horizontalCenterOffset: 83
     }
 
 }

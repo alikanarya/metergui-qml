@@ -1,6 +1,8 @@
 #include "guiinterface.h"
 #include <QDebug>
 
+extern QString webSvrFile;
+
 guiInterfaceFns::guiInterfaceFns(QObject *parent) : QObject(parent)
 {
 
@@ -62,6 +64,11 @@ QString GuiInterfaceObject::get_lbl_dbConn() const
     return lbl_dbConn;
 }
 
+QString GuiInterfaceObject::get_lbl_weberverConn() const
+{
+    return lbl_webserverConn;
+}
+
 void GuiInterfaceObject::setIndex(double value)
 {
     fileIndex = (int) value;
@@ -80,10 +87,28 @@ void GuiInterfaceObject::unconnectedToDB()
     set_lbl_dbConn(MSG_DB_CON_NO);
 }
 
+void GuiInterfaceObject::connectedToWebSvr()
+{
+    set_lbl_webwerverConn(MSG_WEBSVR_CON_YES);
+}
+
+void GuiInterfaceObject::unconnectedToWebSvr()
+{
+    set_lbl_webwerverConn(MSG_WEBSVR_CON_NO);
+}
+
 void GuiInterfaceObject::setImagePath(QString _inp)
 {
     imagePath = _inp;
     emit imagePathChanged();
+    QString _imagePath = folderPath + "/" + fileName;
+    qDebug() << "_imagePath: " << _imagePath;   //eg:
+
+    if (QFile::exists(webSvrFile)) {
+        QFile::remove(webSvrFile);
+    }
+    if (!QFile::copy(_imagePath, webSvrFile))
+        qDebug() << "file copy error";
 }
 
 void GuiInterfaceObject::setfilesInDirListSize(int _inp)
@@ -126,12 +151,18 @@ void GuiInterfaceObject::set_lbl_dbConn(QString _inp)
     emit lbl_dbConnChanged();
 }
 
+void GuiInterfaceObject::set_lbl_webwerverConn(QString _inp)
+{
+    lbl_webserverConn = _inp;
+    emit lbl_webserverConnChanged();
+}
+
 void GuiInterfaceObject::setPath(QString _inp)
 {
     folderPath = filePath = _inp;
     folderPath.replace("file:///","");
-    //qDebug() << "filePath: " << filePath;
-    //qDebug() << "folderPath" << folderPath;
+    //qDebug() << "filePath: " << filePath;   //eg: "file:///D:/Engineering/Repository Data/meter/ngmeter-data/2020-01/12"
+    //qDebug() << "folderPath" << folderPath; //eg: "D:/Engineering/Repository Data/meter/ngmeter-data/2020-01/12"
     //fileOpenDir = QFileInfo(loadedFileNamewPath).absoluteDir();   // required for file open dialog
     fileOpenDir = QDir(folderPath);
     filesInDirList = fileOpenDir.entryList(fileFilters, QDir::Files);
@@ -142,7 +173,7 @@ void GuiInterfaceObject::setPath(QString _inp)
     //foreach(QString temp, filesInDirList){ qDebug() << temp; }
     setFileName(filesInDirList.at(fileIndex));
     QString _imagePath = filePath + "/" + fileName;
-    //qDebug() << "imagePath: " << _imagePath;
+    //qDebug() << "imagePath: " << _imagePath;    //eg: "file:///D:/Engineering/Repository Data/meter/ngmeter-data/2020-01/12/20200112_012516.jpeg"
     setImagePath(_imagePath);
     setsliderFocus(true);
 }

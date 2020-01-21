@@ -32,6 +32,7 @@ void netOps::downloadFinished(QNetworkReply *reply) {
         if (requestMode==7) {
              localWebServerRunning = false;
              qDebug() << "WebServer: " << localWebServerRunning;
+             emit unconnectedToWebSvr();
         }
     } else {
 
@@ -54,18 +55,19 @@ void netOps::downloadFinished(QNetworkReply *reply) {
             if (temp->save(QString(fileName))){
             }*/
 
-            if (temp->save(webDir + "ngmeter.jpeg")) {
+            /*if (temp->save(webDir + "ngmeter.jpeg")) {
                 if (dockerHostLive) {
                     requestMode = 2;    //6;
                     makeRequest(requestMode);
                 } else {
                 }
             } else {
-            }
+            }*/
 
         } else if (_requestMode==7){
             localWebServerRunning = true;
             qDebug() << "WebServer: " << localWebServerRunning;
+            emit connectedToWebSvr();
         } else {
             cout << " data: " << QString::fromUtf8(datagram).toUtf8().constData() << endl;
             dockerRunning = true;

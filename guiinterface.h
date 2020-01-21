@@ -38,10 +38,13 @@ class GuiInterfaceObject : public QObject
     Q_PROPERTY(bool sliderFocus READ getsliderFocus WRITE setsliderFocus NOTIFY sliderFocusChanged)
     Q_PROPERTY(QString fileName READ getFileName WRITE setFileName NOTIFY fileNameChanged)
     Q_PROPERTY(QString lbl_dbConn READ get_lbl_dbConn WRITE set_lbl_dbConn NOTIFY lbl_dbConnChanged)
+    Q_PROPERTY(QString lbl_webserverConn READ get_lbl_weberverConn WRITE set_lbl_webwerverConn NOTIFY lbl_webserverConnChanged)
 
 public:
     QString MSG_DB_CON_YES = "DB +";
     QString MSG_DB_CON_NO = "DB -";
+    QString MSG_WEBSVR_CON_YES = "WEB +";
+    QString MSG_WEBSVR_CON_NO = "WEB -";
 
     QString filePath = "";
     QString imagePath = "";
@@ -57,6 +60,7 @@ public:
     QString year, month, day, hour, min, sec;
     QString date = "", time = "";
     QString lbl_dbConn = MSG_DB_CON_NO;
+    QString lbl_webserverConn = MSG_WEBSVR_CON_NO;
 
     explicit GuiInterfaceObject(QObject *parent = nullptr);
     Q_INVOKABLE QString getImagePath() const;
@@ -65,6 +69,7 @@ public:
     Q_INVOKABLE bool getsliderFocus() const;
     Q_INVOKABLE QString getFileName() const;
     Q_INVOKABLE QString get_lbl_dbConn() const;
+    Q_INVOKABLE QString get_lbl_weberverConn() const;
 
 signals:
     void imagePathChanged();
@@ -73,6 +78,7 @@ signals:
     void sliderFocusChanged();
     void fileNameChanged();
     void lbl_dbConnChanged();
+    void lbl_webserverConnChanged();
 
 public slots:
     void setImagePath(QString _inp);
@@ -81,12 +87,15 @@ public slots:
     void setsliderFocus(bool _inp);
     void setFileName(QString _inp);
     void set_lbl_dbConn(QString _inp);
+    void set_lbl_webwerverConn(QString _inp);
 
     Q_INVOKABLE void setPath(QString _inp);
     Q_INVOKABLE void setIndex(double value);
 
     void connectedToDB();
     void unconnectedToDB();
+    void connectedToWebSvr();
+    void unconnectedToWebSvr();
 
 private:
 
