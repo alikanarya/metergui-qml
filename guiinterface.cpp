@@ -69,6 +69,11 @@ QString GuiInterfaceObject::get_lbl_weberverConn() const
     return lbl_webserverConn;
 }
 
+bool GuiInterfaceObject::getbusyIndicatorState() const
+{
+    return busyIndicatorState;
+}
+
 void GuiInterfaceObject::setIndex(double value)
 {
     fileIndex = (int) value;
@@ -79,6 +84,7 @@ void GuiInterfaceObject::setIndex(double value)
 
 void GuiInterfaceObject::queryImage()
 {
+    setbusyIndicatorState(true);
     netX->makeRequest(6);
     setsliderFocus(true);
 }
@@ -101,6 +107,11 @@ void GuiInterfaceObject::connectedToWebSvr()
 void GuiInterfaceObject::unconnectedToWebSvr()
 {
     set_lbl_webwerverConn(MSG_WEBSVR_CON_NO);
+}
+
+void GuiInterfaceObject::dockerReplyBad()
+{
+    setbusyIndicatorState(false);
 }
 
 void GuiInterfaceObject::setImagePath(QString _inp)
@@ -161,6 +172,12 @@ void GuiInterfaceObject::set_lbl_webwerverConn(QString _inp)
 {
     lbl_webserverConn = _inp;
     emit lbl_webserverConnChanged();
+}
+
+void GuiInterfaceObject::setbusyIndicatorState(bool _inp)
+{
+    busyIndicatorState = _inp;
+    emit busyIndicatorStateChanged();
 }
 
 void GuiInterfaceObject::setPath(QString _inp)

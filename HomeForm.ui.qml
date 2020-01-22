@@ -98,7 +98,7 @@ Page {
                 ? 'red'
                 : lbl_dbconn.text === "DB +"
                   ? 'green'
-                  : 'black')
+                  : 'yellow')
         text: GIO.lbl_dbConn
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
@@ -115,7 +115,7 @@ Page {
                     ? 'red'
                     : lbl_webserverConn.text === "WEB +"
                     ? 'green'
-                    : 'black')
+                    : 'yellow')
         text: GIO.lbl_webserverConn
         anchors.verticalCenterOffset: -170
         horizontalAlignment: Text.AlignLeft
@@ -136,14 +136,14 @@ Page {
         id: busyIndicator
         x: 112
         y: 117
-        running: false
+        running: GIO.busyIndicatorState
     }
 
     Connections {
         target: querryButton
         onClicked: {
                    GIO.queryImage()
-                   busyIndicator.running = true
+                   //busyIndicator.running = true
                    }
     }
 

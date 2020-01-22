@@ -41,6 +41,7 @@ class GuiInterfaceObject : public QObject
     Q_PROPERTY(QString fileName READ getFileName WRITE setFileName NOTIFY fileNameChanged)
     Q_PROPERTY(QString lbl_dbConn READ get_lbl_dbConn WRITE set_lbl_dbConn NOTIFY lbl_dbConnChanged)
     Q_PROPERTY(QString lbl_webserverConn READ get_lbl_weberverConn WRITE set_lbl_webwerverConn NOTIFY lbl_webserverConnChanged)
+    Q_PROPERTY(bool busyIndicatorState READ getbusyIndicatorState WRITE setbusyIndicatorState NOTIFY busyIndicatorStateChanged)
 
 public:
     QString MSG_DB_CON_YES = "DB +";
@@ -63,6 +64,7 @@ public:
     QString date = "", time = "";
     QString lbl_dbConn = MSG_DB_CON_NO;
     QString lbl_webserverConn = MSG_WEBSVR_CON_NO;
+    bool busyIndicatorState = false;
 
     explicit GuiInterfaceObject(QObject *parent = nullptr);
     Q_INVOKABLE QString getImagePath() const;
@@ -72,6 +74,7 @@ public:
     Q_INVOKABLE QString getFileName() const;
     Q_INVOKABLE QString get_lbl_dbConn() const;
     Q_INVOKABLE QString get_lbl_weberverConn() const;
+    Q_INVOKABLE bool getbusyIndicatorState() const;
 
 signals:
     void imagePathChanged();
@@ -81,6 +84,7 @@ signals:
     void fileNameChanged();
     void lbl_dbConnChanged();
     void lbl_webserverConnChanged();
+    void busyIndicatorStateChanged();
 
 public slots:
     void setImagePath(QString _inp);
@@ -90,6 +94,7 @@ public slots:
     void setFileName(QString _inp);
     void set_lbl_dbConn(QString _inp);
     void set_lbl_webwerverConn(QString _inp);
+    void setbusyIndicatorState(bool _inp);
 
     Q_INVOKABLE void setPath(QString _inp);
     Q_INVOKABLE void setIndex(double value);
@@ -99,6 +104,7 @@ public slots:
     void unconnectedToDB();
     void connectedToWebSvr();
     void unconnectedToWebSvr();
+    void dockerReplyBad();
 
 private:
 

@@ -57,6 +57,8 @@ public:
 signals:
     void connectedToWebSvr();
     void unconnectedToWebSvr();
+    void dockerReplyGood(QString);
+    void dockerReplyBad();
 
 public slots:
     void downloadFinished(QNetworkReply *reply);

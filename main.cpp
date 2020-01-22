@@ -63,6 +63,7 @@ int main(int argc, char *argv[])
     netX = new netOps("");
     QObject::connect(netX, SIGNAL(connectedToWebSvr()), &GIO, SLOT(connectedToWebSvr()));
     QObject::connect(netX, SIGNAL(unconnectedToWebSvr()), &GIO, SLOT(unconnectedToWebSvr()));
+    QObject::connect(netX, SIGNAL(dockerReplyBad()), &GIO, SLOT(dockerReplyBad()));
     netX->makeRequest(7);    //check local web server is runnning
 
 
