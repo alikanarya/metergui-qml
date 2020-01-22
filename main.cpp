@@ -64,6 +64,7 @@ int main(int argc, char *argv[])
     QObject::connect(netX, SIGNAL(connectedToWebSvr()), &GIO, SLOT(connectedToWebSvr()));
     QObject::connect(netX, SIGNAL(unconnectedToWebSvr()), &GIO, SLOT(unconnectedToWebSvr()));
     QObject::connect(netX, SIGNAL(dockerReplyBad()), &GIO, SLOT(dockerReplyBad()));
+    QObject::connect(netX, SIGNAL(dockerReplyGood(QString)), &GIO, SLOT(dockerReplyGood(QString)));
     netX->makeRequest(7);    //check local web server is runnning
 
 

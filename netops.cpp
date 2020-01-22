@@ -27,12 +27,12 @@ void netOps::downloadFinished(QNetworkReply *reply) {
         cout << " Error: downloadFinished() " << reply->errorString().constData() << endl;
         if (requestMode==2 || requestMode==3 || requestMode==4 || requestMode==6) {
             dockerRunning = false;
-            cout << "Docker: " << dockerRunning << "\n";
+            //cout << "Docker: " << dockerRunning << "\n";
             emit dockerReplyBad();
         }
         if (requestMode==7) {
              localWebServerRunning = false;
-             qDebug() << "WebServer: " << localWebServerRunning;
+             //qDebug() << "WebServer: " << localWebServerRunning;
              emit unconnectedToWebSvr();
         }
     } else {
@@ -67,13 +67,13 @@ void netOps::downloadFinished(QNetworkReply *reply) {
 
         } else if (_requestMode==7){
             localWebServerRunning = true;
-            qDebug() << "WebServer: " << localWebServerRunning;
+            //qDebug() << "WebServer: " << localWebServerRunning;
             emit connectedToWebSvr();
         } else {
             cout << " data: " << QString::fromUtf8(datagram).toUtf8().constData() << endl;
             dockerRunning = true;
-            cout << "Docker: " << dockerRunning << "\n";
-            emit dockerReplyGood(QString::fromUtf8(datagram));
+            //cout << "Docker: " << dockerRunning << "\n";
+            emit dockerReplyGood(QString::fromUtf8(datagram).insert(datagramSize-1,"."));
         }
 
 

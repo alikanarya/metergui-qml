@@ -4,8 +4,10 @@
 #include <QObject>
 #include <QDir>
 #include "netops.h"
+#include "dbthread.h"
 
 extern netOps *netX;
+extern dbThread *dbThreadX;
 
 class guiInterfaceFns : public QObject
 {
@@ -42,6 +44,7 @@ class GuiInterfaceObject : public QObject
     Q_PROPERTY(QString lbl_dbConn READ get_lbl_dbConn WRITE set_lbl_dbConn NOTIFY lbl_dbConnChanged)
     Q_PROPERTY(QString lbl_webserverConn READ get_lbl_weberverConn WRITE set_lbl_webwerverConn NOTIFY lbl_webserverConnChanged)
     Q_PROPERTY(bool busyIndicatorState READ getbusyIndicatorState WRITE setbusyIndicatorState NOTIFY busyIndicatorStateChanged)
+    Q_PROPERTY(QString result READ get_result WRITE set_result NOTIFY resultChanged)
 
 public:
     QString MSG_DB_CON_YES = "DB +";
@@ -65,6 +68,7 @@ public:
     QString lbl_dbConn = MSG_DB_CON_NO;
     QString lbl_webserverConn = MSG_WEBSVR_CON_NO;
     bool busyIndicatorState = false;
+    QString result = "";
 
     explicit GuiInterfaceObject(QObject *parent = nullptr);
     Q_INVOKABLE QString getImagePath() const;
@@ -75,6 +79,7 @@ public:
     Q_INVOKABLE QString get_lbl_dbConn() const;
     Q_INVOKABLE QString get_lbl_weberverConn() const;
     Q_INVOKABLE bool getbusyIndicatorState() const;
+    Q_INVOKABLE QString get_result() const;
 
 signals:
     void imagePathChanged();
@@ -85,6 +90,7 @@ signals:
     void lbl_dbConnChanged();
     void lbl_webserverConnChanged();
     void busyIndicatorStateChanged();
+    void resultChanged();
 
 public slots:
     void setImagePath(QString _inp);
@@ -95,16 +101,19 @@ public slots:
     void set_lbl_dbConn(QString _inp);
     void set_lbl_webwerverConn(QString _inp);
     void setbusyIndicatorState(bool _inp);
+    void set_result(QString _inp);
 
     Q_INVOKABLE void setPath(QString _inp);
     Q_INVOKABLE void setIndex(double value);
     Q_INVOKABLE void queryImage();
+    Q_INVOKABLE void setResult(QString _inp);
 
     void connectedToDB();
     void unconnectedToDB();
     void connectedToWebSvr();
     void unconnectedToWebSvr();
     void dockerReplyBad();
+    void dockerReplyGood(QString _inp);
 
 private:
 

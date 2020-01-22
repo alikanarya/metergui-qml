@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 dbThread::dbThread(){
 
     db.setHostName(clientAddress);
@@ -20,6 +19,10 @@ void dbThread::run(){
         cmdConnect = false;
     }
 
+    if (cmdInsert){
+        insertToDB();
+        cmdInsert = false;
+    }
 
     verbose = false;
 }
@@ -34,6 +37,25 @@ void dbThread::connectToDB(){
     } else {
         emit connected();
     }
+}
+
+void dbThread::insertToDB()
+{
+    if (db.open()) {
+        QString qryStr = QString( "INSERT INTO gas_reading (date, time, value) VALUES ('%1', '%2', %3)").arg(date).arg(time).arg(result);
+        qDebug() << qryStr.toUtf8().constData();
+
+        qry.prepare( qryStr );
+
+        if( !qry.exec() ){
+            qDebug() << qry.lastError().type();
+            qDebug() << qry.lastError().databaseText();
+        }
+        else {
+            qDebug( "Inserted!" );
+        }
+    }
+
 }
 
 

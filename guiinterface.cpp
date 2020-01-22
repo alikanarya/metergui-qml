@@ -74,6 +74,11 @@ bool GuiInterfaceObject::getbusyIndicatorState() const
     return busyIndicatorState;
 }
 
+QString GuiInterfaceObject::get_result() const
+{
+    return result;
+}
+
 void GuiInterfaceObject::setIndex(double value)
 {
     fileIndex = (int) value;
@@ -87,6 +92,18 @@ void GuiInterfaceObject::queryImage()
     setbusyIndicatorState(true);
     netX->makeRequest(6);
     setsliderFocus(true);
+}
+
+void GuiInterfaceObject::setResult(QString _inp)
+{
+    result = _inp;
+    dbThreadX->date = date;
+    dbThreadX->time = time;
+    dbThreadX->result = result.toFloat();
+    dbThreadX->cmdInsert = true;
+    dbThreadX->start();
+    setsliderFocus(true);
+    //qDebug() << result;
 }
 
 void GuiInterfaceObject::connectedToDB()
@@ -111,6 +128,13 @@ void GuiInterfaceObject::unconnectedToWebSvr()
 
 void GuiInterfaceObject::dockerReplyBad()
 {
+    setbusyIndicatorState(false);
+}
+
+void GuiInterfaceObject::dockerReplyGood(QString _inp)
+{
+    result = _inp;
+    emit resultChanged();
     setbusyIndicatorState(false);
 }
 
@@ -178,6 +202,12 @@ void GuiInterfaceObject::setbusyIndicatorState(bool _inp)
 {
     busyIndicatorState = _inp;
     emit busyIndicatorStateChanged();
+}
+
+void GuiInterfaceObject::set_result(QString _inp)
+{
+    result = _inp;
+    emit resultChanged();
 }
 
 void GuiInterfaceObject::setPath(QString _inp)

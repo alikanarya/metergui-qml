@@ -142,9 +142,45 @@ Page {
     Connections {
         target: querryButton
         onClicked: {
-                   GIO.queryImage()
-                   //busyIndicator.running = true
-                   }
+            GIO.queryImage()
+            //busyIndicator.running = true
+        }
+    }
+
+    TextEdit {
+        id: resultEdit
+        x: 27
+        y: 185
+        width: 111
+        height: 31
+        color: "#ce0a0a"
+        text: GIO.result
+        font.italic: true
+        font.underline: false
+        font.bold: true
+        font.pixelSize: 22
+        horizontalAlignment: Text.AlignHCenter
+
+        Rectangle {
+            anchors.fill: parent
+            anchors.margins: -border.width
+            z: -1
+            border.width: 1
+            color: "#00ff7b"
+        }
+    }
+
+    Button {
+        id: insertButton
+        x: 154
+        y: 176
+        text: qsTr("DB")
+        checked: true
+    }
+
+    Connections {
+        target: insertButton
+        onClicked: GIO.setResult(resultEdit.text)
     }
 
 

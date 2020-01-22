@@ -26,9 +26,14 @@ public:
 
     void stop();
     void connectToDB();
+    void insertToDB();
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     QSqlQuery qry;
+    QString date = "", time = "";
+    float result = 0;
+
+
     QList<int> timeDiffList;
     QList<int> timeDiffListOn;
     QList<int> timeDiffListOff;
@@ -48,8 +53,7 @@ public:
 
     bool verbose = false;
     bool cmdConnect = false;
-
-
+    bool cmdInsert = false;
 
     struct tempData {
         int timeDiff;
