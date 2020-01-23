@@ -42,8 +42,13 @@ void dbThread::connectToDB(){
 void dbThread::insertToDB()
 {
     if (db.open()) {
-        QString qryStr = QString( "INSERT INTO gas_reading (date, time, value) VALUES ('%1', '%2', %3)").arg(date).arg(time).arg(result);
-        qDebug() << qryStr.toUtf8().constData();
+        QString qryStr = "";
+        if (!resultFixed)
+            qryStr = QString( "INSERT INTO gas_reading (date, time, value) VALUES ('%1', '%2', %3)").arg(date).arg(time).arg(result);
+        else
+            qryStr = QString( "INSERT INTO gas_reading (date, time, value, note) VALUES ('%1', '%2', %3, '%4')").arg(date).arg(time).arg(result).arg(FIXED);
+
+        //qDebug() << qryStr.toUtf8().constData();
 
         qry.prepare( qryStr );
 
@@ -55,7 +60,7 @@ void dbThread::insertToDB()
             qDebug( "Inserted!" );
         }
     }
-
+    resultFixed = false;
 }
 
 

@@ -79,6 +79,11 @@ QString GuiInterfaceObject::get_result() const
     return result;
 }
 
+bool GuiInterfaceObject::get_resultFixed() const
+{
+    return resultFixed;
+}
+
 void GuiInterfaceObject::setIndex(double value)
 {
     fileIndex = (int) value;
@@ -100,6 +105,7 @@ void GuiInterfaceObject::setResult(QString _inp)
     dbThreadX->date = date;
     dbThreadX->time = time;
     dbThreadX->result = result.toFloat();
+    dbThreadX->resultFixed = get_resultFixed();
     dbThreadX->cmdInsert = true;
     dbThreadX->start();
     setsliderFocus(true);
@@ -208,6 +214,12 @@ void GuiInterfaceObject::set_result(QString _inp)
 {
     result = _inp;
     emit resultChanged();
+}
+
+void GuiInterfaceObject::set_resultFixed(bool _inp)
+{
+    resultFixed = _inp;
+    emit resultFixedChanged();
 }
 
 void GuiInterfaceObject::setPath(QString _inp)

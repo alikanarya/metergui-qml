@@ -7,6 +7,7 @@
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlDriver>
 
+#define FIXED   "fixed"
 
 extern QString clientAddress;
 extern QString dbName;
@@ -32,6 +33,7 @@ public:
     QSqlQuery qry;
     QString date = "", time = "";
     float result = 0;
+    bool resultFixed = false;
 
 
     QList<int> timeDiffList;

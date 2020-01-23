@@ -11,7 +11,7 @@ Page {
     Label {
         text: qsTr("Dosya Adı:")
         anchors.verticalCenterOffset: 179
-        anchors.horizontalCenterOffset: -85
+        anchors.horizontalCenterOffset: -61
         anchors.centerIn: parent
     }
 
@@ -32,7 +32,7 @@ Page {
 
     BorderImage {
         id: borderImage
-        x: 232
+        x: 254
         y: 53
         width: 400
         height: 300
@@ -58,7 +58,7 @@ Page {
 
     Slider {
         id: imageslider
-        x: 638
+        x: 647
         y: 53
         width: 48
         height: 300
@@ -86,7 +86,7 @@ Page {
         y: 0
         text: GIO.fileName
         anchors.verticalCenterOffset: 179
-        anchors.horizontalCenterOffset: 34
+        anchors.horizontalCenterOffset: 56
         anchors.centerIn: parent
     }
 
@@ -103,7 +103,7 @@ Page {
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         anchors.centerIn: parent
-        anchors.horizontalCenterOffset: -68
+        anchors.horizontalCenterOffset: -46
         anchors.verticalCenterOffset: -170
     }
 
@@ -121,13 +121,14 @@ Page {
         horizontalAlignment: Text.AlignLeft
         anchors.centerIn: parent
         verticalAlignment: Text.AlignVCenter
-        anchors.horizontalCenterOffset: 83
+        anchors.horizontalCenterOffset: 105
     }
 
     Button {
         id: querryButton
         x: 27
         y: 117
+        width: 65
         text: qsTr("Sorgu")
         checked: true
     }
@@ -168,19 +169,45 @@ Page {
             border.width: 1
             color: "#00ff7b"
         }
+        MouseArea {
+            id: resultEditMouseArea
+            anchors.fill: parent
+            propagateComposedEvents: true
+        }
     }
 
     Button {
         id: insertButton
-        x: 154
-        y: 176
+        x: 98
+        y: 117
+        width: 65
         text: qsTr("DB")
         checked: true
     }
 
     Connections {
         target: insertButton
-        onClicked: GIO.setResult(resultEdit.text)
+        onClicked: {
+                    GIO.resultFixed = checkFixed.checked;
+                    GIO.setResult(resultEdit.text);
+                    checkFixed.checked = false;
+                   }
+    }
+
+    CheckBox {
+        id: checkFixed
+        x: 169
+        y: 117
+        text: qsTr("Fixed")
+        checked: false
+    }
+
+    Connections {
+        target: resultEditMouseArea
+        onClicked: {
+                    checkFixed.checked = true;
+                    resultEdit.forceActiveFocus();
+                    }
     }
 
 

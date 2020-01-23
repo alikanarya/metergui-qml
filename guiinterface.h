@@ -45,6 +45,7 @@ class GuiInterfaceObject : public QObject
     Q_PROPERTY(QString lbl_webserverConn READ get_lbl_weberverConn WRITE set_lbl_webwerverConn NOTIFY lbl_webserverConnChanged)
     Q_PROPERTY(bool busyIndicatorState READ getbusyIndicatorState WRITE setbusyIndicatorState NOTIFY busyIndicatorStateChanged)
     Q_PROPERTY(QString result READ get_result WRITE set_result NOTIFY resultChanged)
+    Q_PROPERTY(bool resultFixed READ get_resultFixed WRITE set_resultFixed NOTIFY resultFixedChanged)
 
 public:
     QString MSG_DB_CON_YES = "DB +";
@@ -69,6 +70,7 @@ public:
     QString lbl_webserverConn = MSG_WEBSVR_CON_NO;
     bool busyIndicatorState = false;
     QString result = "";
+    bool resultFixed = false;
 
     explicit GuiInterfaceObject(QObject *parent = nullptr);
     Q_INVOKABLE QString getImagePath() const;
@@ -80,6 +82,7 @@ public:
     Q_INVOKABLE QString get_lbl_weberverConn() const;
     Q_INVOKABLE bool getbusyIndicatorState() const;
     Q_INVOKABLE QString get_result() const;
+    Q_INVOKABLE bool get_resultFixed() const;
 
 signals:
     void imagePathChanged();
@@ -91,6 +94,7 @@ signals:
     void lbl_webserverConnChanged();
     void busyIndicatorStateChanged();
     void resultChanged();
+    void resultFixedChanged();
 
 public slots:
     void setImagePath(QString _inp);
@@ -102,6 +106,7 @@ public slots:
     void set_lbl_webwerverConn(QString _inp);
     void setbusyIndicatorState(bool _inp);
     void set_result(QString _inp);
+    void set_resultFixed(bool _inp);
 
     Q_INVOKABLE void setPath(QString _inp);
     Q_INVOKABLE void setIndex(double value);
