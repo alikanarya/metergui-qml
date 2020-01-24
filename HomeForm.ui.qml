@@ -2,7 +2,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 Page {
-    width: 700
+    width: 1000
     height: 400
     focusPolicy: Qt.NoFocus
 
@@ -188,10 +188,10 @@ Page {
     Connections {
         target: insertButton
         onClicked: {
-                    GIO.resultFixed = checkFixed.checked;
-                    GIO.setResult(resultEdit.text);
-                    checkFixed.checked = false;
-                   }
+            GIO.resultFixed = checkFixed.checked;
+            GIO.setResult(resultEdit.text);
+            checkFixed.checked = false;
+        }
     }
 
     CheckBox {
@@ -205,10 +205,89 @@ Page {
     Connections {
         target: resultEditMouseArea
         onClicked: {
-                    checkFixed.checked = true;
-                    resultEdit.forceActiveFocus();
-                    }
+            checkFixed.checked = true;
+            resultEdit.forceActiveFocus();
+        }
     }
 
+    GridView {
+        id: gridView
+        x: 722
+        y: 53
+        width: 140
+        height: 140
+        delegate: Item {
+            x: 5
+            height: 50
+            Column {
+                Rectangle {
+                    width: 40
+                    height: 40
+                    color: colorCode
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
 
+                Text {
+                    x: 5
+                    text: name
+                    font.bold: true
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                spacing: 5
+            }
+        }
+        model: ListModel {
+            ListElement {
+                name: "Grey"
+                colorCode: "grey"
+            }
+
+            ListElement {
+                name: "Red"
+                colorCode: "red"
+            }
+
+            ListElement {
+                name: "Blue"
+                colorCode: "blue"
+            }
+
+            ListElement {
+                name: "Green"
+                colorCode: "green"
+            }
+        }
+        cellWidth: 70
+        cellHeight: 70
+    }
+
+    ListModel {
+        id: libraryModel
+        ListElement {
+            title: "A Masterpiece"
+            author: "Gabriel"
+        }
+        ListElement {
+            title: "Brilliance"
+            author: "Jens"
+        }
+        ListElement {
+            title: "Outstanding"
+            author: "Frederik"
+        }
+    }
+
+    TableView {
+        TableViewColumn {
+            role: "title"
+            title: "Title"
+            width: 100
+        }
+        TableViewColumn {
+            role: "author"
+            title: "Author"
+            width: 200
+        }
+        model: libraryModel
+    }
 }

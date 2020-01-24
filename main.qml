@@ -6,7 +6,7 @@ import Qt.labs.platform 1.0 as NativeDialogs
 ApplicationWindow {
     id: window
     visible: true
-    width: 700
+    width: 1000
     height: 480
     title: qsTr("Stack")
 
