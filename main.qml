@@ -2,8 +2,8 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import Qt.labs.platform 1.0 as NativeDialogs
 //import com.guiobject 1.0
-import QtQuick.Window 2.11
-import TableModel 0.1
+//import QtQuick.Window 2.11
+//import TableModel 0.1
 
 ApplicationWindow {
     id: window
@@ -87,7 +87,7 @@ ApplicationWindow {
         }
     }
 
-    Window {
+    /*Window {
         visible: true
         width: 640
         height: 480
@@ -165,6 +165,6 @@ ApplicationWindow {
             ScrollIndicator.horizontal: ScrollIndicator { }
             ScrollIndicator.vertical: ScrollIndicator { }
         }
-    }
+    }*/
 
 }

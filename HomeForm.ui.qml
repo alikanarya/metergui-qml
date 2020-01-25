@@ -1,7 +1,7 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
-import QtQuick.Controls 1.4 as OldControls
-import TableModel 0.1
+//import QtQuick.Controls 1.4 as OldControls
+//import TableModel 0.1
 
 Page {
     width: 1000
@@ -212,58 +212,7 @@ Page {
         }
     }
 
-    GridView {
-        id: gridView
-        x: 722
-        y: 53
-        width: 140
-        height: 140
-        delegate: Item {
-            x: 5
-            height: 50
-            Column {
-                Rectangle {
-                    width: 40
-                    height: 40
-                    color: colorCode
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
-
-                Text {
-                    x: 5
-                    text: name
-                    font.bold: true
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
-                spacing: 5
-            }
-        }
-        model: ListModel {
-            ListElement {
-                name: "Grey"
-                colorCode: "grey"
-            }
-
-            ListElement {
-                name: "Red"
-                colorCode: "red"
-            }
-
-            ListElement {
-                name: "Blue"
-                colorCode: "blue"
-            }
-
-            ListElement {
-                name: "Green"
-                colorCode: "green"
-            }
-        }
-        cellWidth: 70
-        cellHeight: 70
-    }
-
-    ListModel {
+    /*ListModel {
         id: libraryModel
         ListElement {
             title: "A Masterpiece"
@@ -277,9 +226,9 @@ Page {
             title: "Outstanding"
             author: "Frederik"
         }
-    }
+    }*/
 
-    Rectangle {
+    /*Rectangle {
         id: rectangle
         x: 716
         y: 190
@@ -302,7 +251,7 @@ Page {
                 }
             }
         }
-    }
+    }*/
 
 
 
