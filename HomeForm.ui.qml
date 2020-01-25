@@ -1,5 +1,7 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
+import QtQuick.Controls 1.4 as OldControls
+import TableModel 0.1
 
 Page {
     width: 1000
@@ -277,17 +279,32 @@ Page {
         }
     }
 
-    TableView {
-        TableViewColumn {
-            role: "title"
-            title: "Title"
-            width: 100
+    Rectangle {
+        id: rectangle
+        x: 716
+        y: 190
+        width: 200
+        height: 200
+        color: "#ffffff"
+        TableView {
+            anchors.fill: parent
+            columnSpacing: 1
+            rowSpacing: 1
+            clip: true
+
+            model: TableModel {}
+
+            delegate: Rectangle {
+                implicitWidth: 100
+                implicitHeight: 50
+                Text {
+                    text: display
+                }
+            }
         }
-        TableViewColumn {
-            role: "author"
-            title: "Author"
-            width: 200
-        }
-        model: libraryModel
     }
+
+
+
+
 }

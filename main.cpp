@@ -5,6 +5,7 @@
 #include "guiinterface.h"
 #include "dbthread.h"
 #include "netops.h"
+#include "tablemodel.h"
 
 #define _DB_NAME            "homeAutoDB"
 #define _DB_USER            "ali"
@@ -35,6 +36,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QScopedPointer<guiInterfaceFns> guiFns(new guiInterfaceFns);
+    qmlRegisterType<TableModel>("TableModel", 0, 1, "TableModel");
 
     QQmlApplicationEngine engine;
 

@@ -18,7 +18,8 @@ SOURCES += \
         dbthread.cpp \
         guiinterface.cpp \
         main.cpp \
-        netops.cpp
+        netops.cpp \
+        tablemodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -36,4 +37,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     dbthread.h \
     guiinterface.h \
-    netops.h
+    netops.h \
+    tablemodel.h
