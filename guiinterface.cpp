@@ -95,6 +95,7 @@ void GuiInterfaceObject::setIndex(double value)
 void GuiInterfaceObject::queryImage()
 {
     setbusyIndicatorState(true);
+
     netX->makeRequest(6);
     setsliderFocus(true);
 }
@@ -110,6 +111,32 @@ void GuiInterfaceObject::setResult(QString _inp)
     dbThreadX->start();
     setsliderFocus(true);
     //qDebug() << result;
+}
+
+void GuiInterfaceObject::queryFolder()
+{
+    setbusyIndicatorState(true);
+    analysisList.clear();
+    QString _fileName, _imagePath;
+
+    for (int i=0; i<filesInDirListSize; i++) {
+        data = new imageData();
+        _fileName = filesInDirList.at(i);
+        data->date = _fileName.mid(6,2) + "/" + _fileName.mid(4,2) + "/" + _fileName.mid(2,2);
+        data->time = _fileName.mid(9,2) + ":" + _fileName.mid(11,2) + ":" + _fileName.mid(13,2);
+        _imagePath = folderPath + "/" + _fileName;
+        if (QFile::exists(webSvrFile)) {
+            QFile::remove(webSvrFile);
+        }
+        if (!QFile::copy(_imagePath, webSvrFile)) {
+            qDebug() << "file copy error";
+            break;
+        } else {
+            netX->makeRequest(6);
+
+        }
+    }
+    setsliderFocus(true);
 }
 
 void GuiInterfaceObject::connectedToDB()
@@ -134,12 +161,15 @@ void GuiInterfaceObject::unconnectedToWebSvr()
 
 void GuiInterfaceObject::dockerReplyBad()
 {
+    delete data;
     setbusyIndicatorState(false);
 }
 
 void GuiInterfaceObject::dockerReplyGood(QString _inp)
 {
     result = _inp;
+    data->result = result;
+    qDebug() << data->date << " " << data->time << " " << data->result;
     emit resultChanged();
     setbusyIndicatorState(false);
 }

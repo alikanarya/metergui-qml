@@ -72,6 +72,16 @@ public:
     QString result = "";
     bool resultFixed = false;
 
+    struct imageData {
+        QString date = "";
+        QString time = "";
+        QString result = "";
+        QString note = "";
+    };
+
+    imageData *data;
+    QList<imageData> analysisList;
+
     explicit GuiInterfaceObject(QObject *parent = nullptr);
     Q_INVOKABLE QString getImagePath() const;
     Q_INVOKABLE double getfilesInDirListSize() const;
@@ -112,6 +122,7 @@ public slots:
     Q_INVOKABLE void setIndex(double value);
     Q_INVOKABLE void queryImage();
     Q_INVOKABLE void setResult(QString _inp);
+    Q_INVOKABLE void queryFolder();
 
     void connectedToDB();
     void unconnectedToDB();
