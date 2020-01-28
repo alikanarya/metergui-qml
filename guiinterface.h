@@ -71,6 +71,8 @@ public:
     bool busyIndicatorState = false;
     QString result = "";
     bool resultFixed = false;
+    bool queryFolderActive = false;
+    int queryFolderIndex = 0;
 
     struct imageData {
         QString date = "";
@@ -80,7 +82,7 @@ public:
     };
 
     imageData *data;
-    QList<imageData> analysisList;
+    QList<imageData *> analysisList;
 
     explicit GuiInterfaceObject(QObject *parent = nullptr);
     Q_INVOKABLE QString getImagePath() const;
@@ -118,11 +120,13 @@ public slots:
     void set_result(QString _inp);
     void set_resultFixed(bool _inp);
 
+    void queryFolder();
+
     Q_INVOKABLE void setPath(QString _inp);
     Q_INVOKABLE void setIndex(double value);
     Q_INVOKABLE void queryImage();
     Q_INVOKABLE void setResult(QString _inp);
-    Q_INVOKABLE void queryFolder();
+    Q_INVOKABLE void queryFolderInit();
 
     void connectedToDB();
     void unconnectedToDB();

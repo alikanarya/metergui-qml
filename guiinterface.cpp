@@ -94,10 +94,12 @@ void GuiInterfaceObject::setIndex(double value)
 
 void GuiInterfaceObject::queryImage()
 {
+    /*
     setbusyIndicatorState(true);
-
     netX->makeRequest(6);
     setsliderFocus(true);
+    */
+    queryFolderInit();
 }
 
 void GuiInterfaceObject::setResult(QString _inp)
@@ -113,30 +115,34 @@ void GuiInterfaceObject::setResult(QString _inp)
     //qDebug() << result;
 }
 
-void GuiInterfaceObject::queryFolder()
+void GuiInterfaceObject::queryFolderInit()
 {
     setbusyIndicatorState(true);
     analysisList.clear();
-    QString _fileName, _imagePath;
+    queryFolderActive = true;
+    queryFolderIndex = 0;
+    queryFolder();
+}
 
-    for (int i=0; i<filesInDirListSize; i++) {
+void GuiInterfaceObject::queryFolder()
+{
+    if (queryFolderIndex<filesInDirListSize) {
+        QString _fileName, _imagePath;
         data = new imageData();
-        _fileName = filesInDirList.at(i);
+        _fileName = filesInDirList.at(queryFolderIndex);
         data->date = _fileName.mid(6,2) + "/" + _fileName.mid(4,2) + "/" + _fileName.mid(2,2);
         data->time = _fileName.mid(9,2) + ":" + _fileName.mid(11,2) + ":" + _fileName.mid(13,2);
+        analysisList.append(data);
         _imagePath = folderPath + "/" + _fileName;
         if (QFile::exists(webSvrFile)) {
             QFile::remove(webSvrFile);
         }
         if (!QFile::copy(_imagePath, webSvrFile)) {
             qDebug() << "file copy error";
-            break;
         } else {
             netX->makeRequest(6);
-
         }
     }
-    setsliderFocus(true);
 }
 
 void GuiInterfaceObject::connectedToDB()
@@ -161,17 +167,36 @@ void GuiInterfaceObject::unconnectedToWebSvr()
 
 void GuiInterfaceObject::dockerReplyBad()
 {
-    delete data;
-    setbusyIndicatorState(false);
+    if (queryFolderActive) {
+        analysisList.at(queryFolderIndex)->result = "-";
+        qDebug() << analysisList.at(queryFolderIndex)->date << " " << analysisList.at(queryFolderIndex)->time << " " << analysisList.at(queryFolderIndex)->result;
+        queryFolderIndex++;
+        if (queryFolderIndex < filesInDirListSize) {
+            queryFolder();
+        } else {
+            setbusyIndicatorState(false);
+        }
+    } else {
+        setbusyIndicatorState(false);
+    }
 }
 
 void GuiInterfaceObject::dockerReplyGood(QString _inp)
 {
     result = _inp;
-    data->result = result;
-    qDebug() << data->date << " " << data->time << " " << data->result;
-    emit resultChanged();
-    setbusyIndicatorState(false);
+    if (queryFolderActive) {
+        analysisList.at(queryFolderIndex)->result = result;
+        qDebug() << analysisList.at(queryFolderIndex)->date << " " << analysisList.at(queryFolderIndex)->time << " " << analysisList.at(queryFolderIndex)->result;
+        queryFolderIndex++;
+        if (queryFolderIndex < filesInDirListSize) {
+            queryFolder();
+        } else {
+            setbusyIndicatorState(false);
+        }
+    } else {
+        emit resultChanged();
+        setbusyIndicatorState(false);
+    }
 }
 
 void GuiInterfaceObject::setImagePath(QString _inp)
