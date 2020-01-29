@@ -46,6 +46,10 @@ class GuiInterfaceObject : public QObject
     Q_PROPERTY(bool busyIndicatorState READ getbusyIndicatorState WRITE setbusyIndicatorState NOTIFY busyIndicatorStateChanged)
     Q_PROPERTY(QString result READ get_result WRITE set_result NOTIFY resultChanged)
     Q_PROPERTY(bool resultFixed READ get_resultFixed WRITE set_resultFixed NOTIFY resultFixedChanged)
+    Q_PROPERTY(QString autoResult READ get_autoResult WRITE set_autoResult NOTIFY autoResultChanged)
+    Q_PROPERTY(QString autoDate READ get_autoDate WRITE set_autoDate NOTIFY autoDateChanged)
+    Q_PROPERTY(QString autoTime READ get_autoTime WRITE set_autoTime NOTIFY autoTimeChanged)
+    Q_PROPERTY(bool autoResultFixed READ get_autoResultFixed WRITE set_autoResultFixed NOTIFY autoResultFixedChanged)
 
 public:
     QString MSG_DB_CON_YES = "DB +";
@@ -78,11 +82,16 @@ public:
         QString date = "";
         QString time = "";
         QString result = "";
-        QString note = "";
+        bool fixed = false;
     };
 
     imageData *data;
     QList<imageData *> analysisList;
+
+    QString autoResult = "";
+    QString autoDate = "";
+    QString autoTime = "";
+    bool autoResultFixed = false;
 
     explicit GuiInterfaceObject(QObject *parent = nullptr);
     Q_INVOKABLE QString getImagePath() const;
@@ -95,6 +104,10 @@ public:
     Q_INVOKABLE bool getbusyIndicatorState() const;
     Q_INVOKABLE QString get_result() const;
     Q_INVOKABLE bool get_resultFixed() const;
+    Q_INVOKABLE QString get_autoResult() const;
+    Q_INVOKABLE QString get_autoDate() const;
+    Q_INVOKABLE QString get_autoTime() const;
+    Q_INVOKABLE bool get_autoResultFixed() const;
 
 signals:
     void imagePathChanged();
@@ -107,6 +120,10 @@ signals:
     void busyIndicatorStateChanged();
     void resultChanged();
     void resultFixedChanged();
+    void autoResultChanged();
+    void autoDateChanged();
+    void autoTimeChanged();
+    void autoResultFixedChanged();
 
 public slots:
     void setImagePath(QString _inp);
@@ -119,6 +136,10 @@ public slots:
     void setbusyIndicatorState(bool _inp);
     void set_result(QString _inp);
     void set_resultFixed(bool _inp);
+    void set_autoResult(QString _inp);
+    void set_autoDate(QString _inp);
+    void set_autoTime(QString _inp);
+    void set_autoResultFixed(bool _inp);
 
     void queryFolder();
 

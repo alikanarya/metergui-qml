@@ -84,12 +84,39 @@ bool GuiInterfaceObject::get_resultFixed() const
     return resultFixed;
 }
 
+QString GuiInterfaceObject::get_autoResult() const
+{
+    return autoResult;
+}
+
+QString GuiInterfaceObject::get_autoDate() const
+{
+    return autoDate;
+}
+
+QString GuiInterfaceObject::get_autoTime() const
+{
+    return autoTime;
+}
+
+bool GuiInterfaceObject::get_autoResultFixed() const
+{
+    return autoResultFixed;
+}
+
 void GuiInterfaceObject::setIndex(double value)
 {
     fileIndex = (int) value;
     //qDebug() << "fileIndex: " << fileIndex;
-    setFileName(filesInDirList.at((int) fileIndex));
+    setFileName(filesInDirList.at(fileIndex));
     setImagePath(filePath + "/" + fileName);
+    if (queryFolderActive) {
+        set_autoDate(analysisList.at(fileIndex)->date);
+        set_autoTime(analysisList.at(fileIndex)->time);
+        set_autoResult(analysisList.at(fileIndex)->result);
+        set_autoResultFixed(analysisList.at(fileIndex)->fixed);
+    }
+
 }
 
 void GuiInterfaceObject::queryImage()
@@ -132,6 +159,7 @@ void GuiInterfaceObject::queryFolder()
         _fileName = filesInDirList.at(queryFolderIndex);
         data->date = _fileName.mid(6,2) + "/" + _fileName.mid(4,2) + "/" + _fileName.mid(2,2);
         data->time = _fileName.mid(9,2) + ":" + _fileName.mid(11,2) + ":" + _fileName.mid(13,2);
+        data->fixed = false;
         analysisList.append(data);
         _imagePath = folderPath + "/" + _fileName;
         if (QFile::exists(webSvrFile)) {
@@ -169,11 +197,17 @@ void GuiInterfaceObject::dockerReplyBad()
 {
     if (queryFolderActive) {
         analysisList.at(queryFolderIndex)->result = "-";
-        qDebug() << analysisList.at(queryFolderIndex)->date << " " << analysisList.at(queryFolderIndex)->time << " " << analysisList.at(queryFolderIndex)->result;
+        //qDebug() << analysisList.at(queryFolderIndex)->date << " " << analysisList.at(queryFolderIndex)->time << " " << analysisList.at(queryFolderIndex)->result;
+        set_autoDate(analysisList.at(queryFolderIndex)->date);
+        set_autoTime(analysisList.at(queryFolderIndex)->time);
+        set_autoResult(analysisList.at(queryFolderIndex)->result);
+
         queryFolderIndex++;
         if (queryFolderIndex < filesInDirListSize) {
             queryFolder();
         } else {
+            setfileIndex(0);
+            setsliderFocus(true);
             setbusyIndicatorState(false);
         }
     } else {
@@ -186,11 +220,17 @@ void GuiInterfaceObject::dockerReplyGood(QString _inp)
     result = _inp;
     if (queryFolderActive) {
         analysisList.at(queryFolderIndex)->result = result;
-        qDebug() << analysisList.at(queryFolderIndex)->date << " " << analysisList.at(queryFolderIndex)->time << " " << analysisList.at(queryFolderIndex)->result;
+        //qDebug() << analysisList.at(queryFolderIndex)->date << " " << analysisList.at(queryFolderIndex)->time << " " << analysisList.at(queryFolderIndex)->result;
+        set_autoDate(analysisList.at(queryFolderIndex)->date);
+        set_autoTime(analysisList.at(queryFolderIndex)->time);
+        set_autoResult(analysisList.at(queryFolderIndex)->result);
+
         queryFolderIndex++;
         if (queryFolderIndex < filesInDirListSize) {
             queryFolder();
         } else {
+            setfileIndex(0);
+            setsliderFocus(true);
             setbusyIndicatorState(false);
         }
     } else {
@@ -243,7 +283,7 @@ void GuiInterfaceObject::setFileName(QString _inp)
     sec = fileName.mid(13,2);
     time = hour + ":" + min + ":" + sec;
 
-    qDebug() << date << " " << time;
+    //qDebug() << date << " " << time;
     emit fileNameChanged();
 }
 
@@ -275,6 +315,30 @@ void GuiInterfaceObject::set_resultFixed(bool _inp)
 {
     resultFixed = _inp;
     emit resultFixedChanged();
+}
+
+void GuiInterfaceObject::set_autoResult(QString _inp)
+{
+    autoResult = _inp;
+    emit autoResultChanged();
+}
+
+void GuiInterfaceObject::set_autoDate(QString _inp)
+{
+    autoDate = _inp;
+    emit autoDateChanged();
+}
+
+void GuiInterfaceObject::set_autoTime(QString _inp)
+{
+    autoTime = _inp;
+    emit autoTimeChanged();
+}
+
+void GuiInterfaceObject::set_autoResultFixed(bool _inp)
+{
+    autoResultFixed = _inp;
+    emit autoResultFixedChanged();
 }
 
 void GuiInterfaceObject::setPath(QString _inp)

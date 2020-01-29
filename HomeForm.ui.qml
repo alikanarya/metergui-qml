@@ -114,10 +114,10 @@ Page {
         x: 3
         y: -9
         color: (lbl_webserverConn.text === "WEB -"
-                    ? 'red'
-                    : lbl_webserverConn.text === "WEB +"
-                    ? 'green'
-                    : 'yellow')
+                ? 'red'
+                : lbl_webserverConn.text === "WEB +"
+                  ? 'green'
+                  : 'yellow')
         text: GIO.lbl_webserverConn
         anchors.verticalCenterOffset: -170
         horizontalAlignment: Text.AlignLeft
@@ -211,6 +211,94 @@ Page {
             resultEdit.forceActiveFocus();
         }
     }
+
+    TextEdit {
+        id: autoResultEdit
+        x: 712
+        y: 152
+        width: 111
+        height: 31
+        color: "#ce0a0a"
+        text: GIO.autoResult
+        font.bold: true
+        font.italic: true
+        font.pixelSize: 22
+        Rectangle {
+            color: "#00ff7b"
+            anchors.margins: -border.width
+            z: -1
+            anchors.fill: parent
+            border.width: 1
+        }
+        font.underline: false
+        horizontalAlignment: Text.AlignHCenter
+    }
+
+
+
+    CheckBox {
+        id: autoCheckFixed
+        x: 712
+        y: 200
+        text: qsTr("Fixed")
+        checked: false
+    }
+
+    Rectangle {
+        id: rectangle1
+        x: 712
+        y: 53
+        width: 150
+        height: 30
+        color: "#00000000"
+        border.width: 2
+        border.color: "#ffff00"
+
+        Label {
+            id: autoDateLabel
+            x: -687
+            y: 169
+            width: 150
+            height: 30
+            text: GIO.autoDate
+            verticalAlignment: Text.AlignVCenter
+            wrapMode: Text.NoWrap
+            font.pixelSize: 22
+            anchors.horizontalCenterOffset: 9
+            anchors.centerIn: parent
+            anchors.verticalCenterOffset: 2
+        }
+    }
+
+    Rectangle {
+        id: rectangle2
+        x: 712
+        y: 103
+        width: 150
+        height: 30
+        color: "#00000000"
+        border.color: "#ffff00"
+        border.width: 2
+
+        Label {
+            id: autoTimeLabel
+            x: -688
+            y: 178
+            width: 150
+            height: 30
+            text: GIO.autoTime
+            anchors.horizontalCenterOffset: 10
+            font.pixelSize: 22
+            anchors.centerIn: parent
+            anchors.verticalCenterOffset: 2
+        }
+    }
+
+    Connections {
+        target: autoCheckFixed
+        onClicked: print("clicked")
+    }
+
 
     /*ListModel {
         id: libraryModel

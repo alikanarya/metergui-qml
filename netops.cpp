@@ -70,7 +70,7 @@ void netOps::downloadFinished(QNetworkReply *reply) {
             //qDebug() << "WebServer: " << localWebServerRunning;
             emit connectedToWebSvr();
         } else {
-            cout << " data: " << QString::fromUtf8(datagram).toUtf8().constData() << endl;
+            //cout << " data: " << QString::fromUtf8(datagram).toUtf8().constData() << endl;
             dockerRunning = true;
             //cout << "Docker: " << dockerRunning << "\n";
             emit dockerReplyGood(QString::fromUtf8(datagram).insert(datagramSize-1,"."));
