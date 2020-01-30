@@ -34,6 +34,7 @@ public:
     QString date = "", time = "";
     float result = 0;
     bool resultFixed = false;
+    bool insertFolderData = false;
 
 
     QList<int> timeDiffList;
@@ -79,6 +80,7 @@ signals:
 
     void connected();
     void unconnected();
+    void nextData();
 
 };
 

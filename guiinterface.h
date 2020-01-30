@@ -63,7 +63,7 @@ public:
     QDir fileOpenDir;
     QStringList filesInDirList;
     QStringList fileFilters  = (QStringList() << "*.jpeg" << "*.jpg" << "*.png");
-    int fileIndex = 0;
+    int fileIndex = 0, fileIndexDB = 0;
     double filesInDirListSize = 0;
     //double sliderStep = 0;
     bool sliderFocus = true;
@@ -150,6 +150,7 @@ public slots:
     Q_INVOKABLE void queryFolderInit();
     Q_INVOKABLE void setAutoResultFixed(bool _inp);
     Q_INVOKABLE void setAutoResult(QString _inp);
+    Q_INVOKABLE void insertFolderResults();
 
     void connectedToDB();
     void unconnectedToDB();
@@ -157,6 +158,7 @@ public slots:
     void unconnectedToWebSvr();
     void dockerReplyBad();
     void dockerReplyGood(QString _inp);
+    void nextData();
 
 private:
 

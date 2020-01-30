@@ -168,6 +168,20 @@ void GuiInterfaceObject::setAutoResult(QString _inp)
 
 }
 
+void GuiInterfaceObject::insertFolderResults()
+{
+    setbusyIndicatorState(true);
+    fileIndexDB = 0;
+    dbThreadX->date = analysisList.at(fileIndexDB)->date;
+    dbThreadX->time = analysisList.at(fileIndexDB)->time;
+    dbThreadX->result = analysisList.at(fileIndexDB)->result.toFloat();
+    dbThreadX->resultFixed = analysisList.at(fileIndexDB)->fixed;
+    dbThreadX->cmdInsert = true;
+    dbThreadX->insertFolderData = true;
+    dbThreadX->start();
+
+}
+
 void GuiInterfaceObject::queryFolder()
 {
     if (queryFolderIndex<filesInDirListSize) {
@@ -223,6 +237,7 @@ void GuiInterfaceObject::dockerReplyBad()
         if (queryFolderIndex < filesInDirListSize) {
             queryFolder();
         } else {
+            fileIndexDB = 0;
             setfileIndex(0);
             setsliderFocus(true);
             setbusyIndicatorState(false);
@@ -246,6 +261,7 @@ void GuiInterfaceObject::dockerReplyGood(QString _inp)
         if (queryFolderIndex < filesInDirListSize) {
             queryFolder();
         } else {
+            fileIndexDB = 0;
             setfileIndex(0);
             setsliderFocus(true);
             setbusyIndicatorState(false);
@@ -254,6 +270,24 @@ void GuiInterfaceObject::dockerReplyGood(QString _inp)
         emit resultChanged();
         setbusyIndicatorState(false);
     }
+}
+
+void GuiInterfaceObject::nextData()
+{
+    fileIndexDB++;
+    if (fileIndexDB < filesInDirListSize) {
+        dbThreadX->date = analysisList.at(fileIndexDB)->date;
+        dbThreadX->time = analysisList.at(fileIndexDB)->time;
+        dbThreadX->result = analysisList.at(fileIndexDB)->result.toFloat();
+        dbThreadX->resultFixed = analysisList.at(fileIndexDB)->fixed;
+        dbThreadX->cmdInsert = true;
+        dbThreadX->insertFolderData = true;
+        dbThreadX->start();
+    } else {
+        dbThreadX->insertFolderData = false;
+        setbusyIndicatorState(false);
+    }
+
 }
 
 void GuiInterfaceObject::setImagePath(QString _inp)

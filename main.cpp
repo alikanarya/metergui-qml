@@ -23,8 +23,8 @@ QString RequestUrl[8] = {
     /*3*/   "http://192.168.2.11:3000/wasserzaehler.html?url=http://192.168.2.49/capture_with_flashlight&single",
     /*4*/   "http://192.168.2.11:3000/wasserzaehler.html?url=http://192.168.2.49/capture&single",
     /*5*/   "http://192.168.2.10/meter/capture.jpg",
-    //   "http://192.168.2.11:3000/wasserzaehler.html?url=http://192.168.2.10/meter/ngmeter.jpeg&single",
-    /*6*/   "http://192.168.1.196:3000/wasserzaehler.html?url=http://192.168.1.247/meter/ngmeter.jpeg&single",
+    /*6*/   "http://192.168.2.11:3000/wasserzaehler.html?url=http://192.168.2.10/meter/ngmeter.jpeg&single",
+    //   "http://192.168.1.196:3000/wasserzaehler.html?url=http://192.168.1.247/meter/ngmeter.jpeg&single",
     /*7*/   "http://127.0.0.1/meter/ngmeter.jpeg"
     };
 QString webSvrFile = "C:/xampp/htdocs/meter/ngmeter.jpeg";
@@ -60,6 +60,7 @@ int main(int argc, char *argv[])
     dbThreadX->cmdConnect = true;
     QObject::connect(dbThreadX, SIGNAL(connected()), &GIO, SLOT(connectedToDB()));
     QObject::connect(dbThreadX, SIGNAL(unconnected()), &GIO, SLOT(unconnectedToDB()));
+    QObject::connect(dbThreadX, SIGNAL(nextData()), &GIO, SLOT(nextData()));
 
     dbThreadX->start();
 

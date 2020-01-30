@@ -318,6 +318,22 @@ Page {
         onClicked: GIO.queryFolderInit()
     }
 
+    Button {
+        id: insertFolder
+        x: 712
+        y: 271
+        width: 150
+        height: 48
+        text: qsTr("DB Insert")
+        checked: false
+        checkable: false
+    }
+
+    Connections {
+        target: insertFolder
+        onClicked: GIO.insertFolderResults()
+    }
+
 
     /*ListModel {
         id: libraryModel
