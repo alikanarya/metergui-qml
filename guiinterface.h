@@ -148,6 +148,8 @@ public slots:
     Q_INVOKABLE void queryImage();
     Q_INVOKABLE void setResult(QString _inp);
     Q_INVOKABLE void queryFolderInit();
+    Q_INVOKABLE void setAutoResultFixed(bool _inp);
+    Q_INVOKABLE void setAutoResult(QString _inp);
 
     void connectedToDB();
     void unconnectedToDB();

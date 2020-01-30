@@ -215,13 +215,13 @@ Page {
     TextEdit {
         id: autoResultEdit
         x: 712
-        y: 152
+        y: 188
         width: 111
         height: 31
         color: "#ce0a0a"
         text: GIO.autoResult
         font.bold: true
-        font.italic: true
+        font.italic: false
         font.pixelSize: 22
         Rectangle {
             color: "#00ff7b"
@@ -239,15 +239,15 @@ Page {
     CheckBox {
         id: autoCheckFixed
         x: 712
-        y: 200
+        y: 225
         text: qsTr("Fixed")
-        checked: false
+        checked: GIO.autoResultFixed
     }
 
     Rectangle {
         id: rectangle1
         x: 712
-        y: 53
+        y: 107
         width: 150
         height: 30
         color: "#00000000"
@@ -273,7 +273,7 @@ Page {
     Rectangle {
         id: rectangle2
         x: 712
-        y: 103
+        y: 147
         width: 150
         height: 30
         color: "#00000000"
@@ -296,7 +296,26 @@ Page {
 
     Connections {
         target: autoCheckFixed
-        onClicked: print("clicked")
+        onClicked: {
+                    GIO.setAutoResult(autoResultEdit.text);
+                    GIO.setAutoResultFixed(autoCheckFixed.checked);
+                   }
+    }
+
+    Button {
+        id: autoQuerryButton
+        x: 712
+        y: 53
+        width: 150
+        height: 48
+        text: qsTr("Klasör Sorgu")
+        checkable: false
+        checked: false
+    }
+
+    Connections {
+        target: autoQuerryButton
+        onClicked: GIO.queryFolderInit()
     }
 
 

@@ -121,12 +121,11 @@ void GuiInterfaceObject::setIndex(double value)
 
 void GuiInterfaceObject::queryImage()
 {
-    /*
+
     setbusyIndicatorState(true);
     netX->makeRequest(6);
     setsliderFocus(true);
-    */
-    queryFolderInit();
+
 }
 
 void GuiInterfaceObject::setResult(QString _inp)
@@ -149,6 +148,24 @@ void GuiInterfaceObject::queryFolderInit()
     queryFolderActive = true;
     queryFolderIndex = 0;
     queryFolder();
+}
+
+void GuiInterfaceObject::setAutoResultFixed(bool _inp)
+{
+    //autoResultFixed = _inp;
+    if (queryFolderActive && fileIndex>=0 && fileIndex<filesInDirListSize) {
+        analysisList.at(fileIndex)->fixed = _inp;
+    }
+    setsliderFocus(true);
+}
+
+void GuiInterfaceObject::setAutoResult(QString _inp)
+{
+    if (queryFolderActive && fileIndex>=0 && fileIndex<filesInDirListSize) {
+        analysisList.at(fileIndex)->result = _inp;
+        //qDebug() << analysisList.at(fileIndex)->result;
+    }
+
 }
 
 void GuiInterfaceObject::queryFolder()
