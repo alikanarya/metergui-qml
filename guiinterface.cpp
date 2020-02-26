@@ -147,6 +147,7 @@ void GuiInterfaceObject::queryFolderInit()
     analysisList.clear();
     queryFolderActive = true;
     queryFolderIndex = 0;
+    queryFolderFinished = false;
     queryFolder();
 }
 
@@ -226,7 +227,7 @@ void GuiInterfaceObject::unconnectedToWebSvr()
 
 void GuiInterfaceObject::dockerReplyBad()
 {
-    if (queryFolderActive) {
+    if (queryFolderActive && !queryFolderFinished) {
         analysisList.at(queryFolderIndex)->result = "-";
         //qDebug() << analysisList.at(queryFolderIndex)->date << " " << analysisList.at(queryFolderIndex)->time << " " << analysisList.at(queryFolderIndex)->result;
         set_autoDate(analysisList.at(queryFolderIndex)->date);
@@ -238,6 +239,7 @@ void GuiInterfaceObject::dockerReplyBad()
             queryFolder();
         } else {
             fileIndexDB = 0;
+            queryFolderFinished = true;
             setfileIndex(0);
             setsliderFocus(true);
             setbusyIndicatorState(false);
@@ -250,7 +252,7 @@ void GuiInterfaceObject::dockerReplyBad()
 void GuiInterfaceObject::dockerReplyGood(QString _inp)
 {
     result = _inp;
-    if (queryFolderActive) {
+    if (queryFolderActive && !queryFolderFinished) {
         analysisList.at(queryFolderIndex)->result = result;
         //qDebug() << analysisList.at(queryFolderIndex)->date << " " << analysisList.at(queryFolderIndex)->time << " " << analysisList.at(queryFolderIndex)->result;
         set_autoDate(analysisList.at(queryFolderIndex)->date);
@@ -262,6 +264,7 @@ void GuiInterfaceObject::dockerReplyGood(QString _inp)
             queryFolder();
         } else {
             fileIndexDB = 0;
+            queryFolderFinished = true;
             setfileIndex(0);
             setsliderFocus(true);
             setbusyIndicatorState(false);

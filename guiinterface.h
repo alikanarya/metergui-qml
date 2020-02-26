@@ -76,6 +76,7 @@ public:
     QString result = "";
     bool resultFixed = false;
     bool queryFolderActive = false;
+    bool queryFolderFinished = true;
     int queryFolderIndex = 0;
 
     struct imageData {

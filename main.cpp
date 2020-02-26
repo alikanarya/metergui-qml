@@ -23,11 +23,12 @@ QString RequestUrl[8] = {
     /*3*/   "http://192.168.2.11:3000/wasserzaehler.html?url=http://192.168.2.49/capture_with_flashlight&single",
     /*4*/   "http://192.168.2.11:3000/wasserzaehler.html?url=http://192.168.2.49/capture&single",
     /*5*/   "http://192.168.2.10/meter/capture.jpg",
-    /*6*/   "http://192.168.2.46:8000/analyse.html?url=http://192.168.2.10/meter/ngmeter.jpeg",
+    /*6*/   "http://192.168.1.193:8000/analyse.html?url=http://192.168.1.247/meter/ngmeter.jpeg",
     //   "http://192.168.1.196:3000/wasserzaehler.html?url=http://192.168.1.247/meter/ngmeter.jpeg&single",
     /*7*/   "http://127.0.0.1/meter/ngmeter.jpeg"
     };
 //   "http://192.168.2.11:3000/wasserzaehler.html?url=http://192.168.2.10/meter/ngmeter.jpeg&single",
+//   "http://192.168.2.46:8000/analyse.html?url=http://192.168.2.10/meter/ngmeter.jpeg",
 QString webSvrFile = "C:/xampp/htdocs/meter/ngmeter.jpeg";
 QString webUrl = "http://192.168.2.48:8080/";
 
